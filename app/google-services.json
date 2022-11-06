@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879778429321",
+    "project_id": "abcd-dfb99",
+    "storage_bucket": "abcd-dfb99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879778429321:android:eb6c58f56d1a069c6f8958",
+        "android_client_info": {
+          "package_name": "com.app.mycamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879778429321-cpu0t84j4rng59g5k4kvrnkdlmpctkdb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDs0KUU28MvFsTQLiCc-Sts5qAAxpQz5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879778429321-cpu0t84j4rng59g5k4kvrnkdlmpctkdb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
