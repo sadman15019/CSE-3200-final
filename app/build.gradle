@@ -33,6 +33,8 @@ android {
                 install "matplotlib"
                 install "pillow"
                 install "opencv-python"
+                install "ffmpeg"
+
 
             }
 

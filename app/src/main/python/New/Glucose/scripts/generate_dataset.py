@@ -745,7 +745,8 @@ class ExtractFrames(object):
 
         # fps = round(cap.get(cv2.CAP_PROP_FPS))
         fps=30
-        #video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
+      #  video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
+
         #duration = video_length/fps  
 
         if cap.isOpened():
@@ -776,7 +777,8 @@ class ExtractFrames(object):
             #cap.set(cv2.CAP_PROP_FPS, int(fps_num))
         
         fps = 30
-        #video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
+        video_length = int(cap.get(cv.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
+        return video_length
         #duration = video_length/fps  
 
         if cap.isOpened():
@@ -811,7 +813,7 @@ frame_rate = 0.0167
 default_fps = True
 fig_save = True
 verbose = 0
-def main(data_dir):
+def main(data_dir,ppg_feats):
     ##---------------------------------
     # data_dir        =   args.data_dir
     # save_dir        =   args.save_dir
@@ -950,7 +952,7 @@ def main(data_dir):
                     _feat_ppg49.insert(0, 20)
                     _feat_ppg49.append(_feat_svri)
                     features_set.append(_feat_ppg49)
-                    return _feat_ppg49
+
         
                 except Exception as e:
                     LOG_INFO(f"{e}",mcolor="red") 
@@ -970,8 +972,8 @@ def main(data_dir):
     headers = ['ID', 'Systolic_peak(x)', 'Max. Slope(c)', 'Time of Max. Slope(t_ms)', 'Prev. point a_ip(d)', 'Time of a_ip(t_ip)', 'Diastolic_peak(y)', 'Dicrotic_notch(z)', 'Pulse_interval(tpi)', 'Systolic_peak_time(t1)', 'Diastolic_peak_time(t2)', 'Dicrotic_notch_time(t3)', 'w', 'Inflection_point_area_ratio(A2/A1)', 'a1','b1', 'e1', 'l1', 'a2','b2','e2', 'ta1', 'tb1', 'te1', 'tl1', 'ta2', 'tb2', 'te2', 'Fundamental_component_frequency(fbase)', 'Fundamental_component_magnitude(|sbase|)', '2nd_harmonic_frequency(f2nd)', '2nd_harmonic_magnitude(|s2nd|)', '3rd_harmonic_frequency(f3rd)', '3rd_harmonic_magnitude(|s3rd|)', 'Stress-induced_vascular_response_index(sVRI)']
     print(len(headers))
     df_in = pd.DataFrame(features_set, columns=headers)
-   # df_in.to_csv(ppg_feats)
-
+    df_in.to_csv(ppg_feats)
+    return _feat_ppg49
 
 if __name__=="__main__":
     '''
@@ -1010,8 +1012,8 @@ if __name__=="__main__":
     '''
     
     
-    data_dir =  '/storage/emulated/0/Movies/CameraX-Video/20_abc_.mp4'
-    ppg_feats = '/storage/emulated/0/Download/ppg_feats.csv'
+#     data_dir =  '/storage/emulated/0/Movies/CameraX-Video/20_abc_.mp4'
+#     ppg_feats = '/storage/emulated/0/Download/ppg_feats.csv'
     frames_save = False
     fps_num = 60
     frame_rate = 0.0167
