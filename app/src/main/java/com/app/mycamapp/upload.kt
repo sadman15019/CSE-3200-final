@@ -48,7 +48,7 @@ class upload : AppCompatActivity() {
                 val intent = Intent(this,WaitActivity::class.java)
                 startActivity(intent)
                 finish()
-            },5000)
+            },20000)
 
 
 

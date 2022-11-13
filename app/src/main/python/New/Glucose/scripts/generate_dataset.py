@@ -756,9 +756,10 @@ class ExtractFrames(object):
                 try:
                     fps = 30
                     success, image = cap.read()
+                    im_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                     if frames_save:
                         cv2.imwrite(os.path.join(frames_dir, str(count) + '.jpg'), image)
-                    yield image, fps
+                    yield  im_rgb, fps
                     count += 1
                 except Exception as e:
                     LOG_INFO(f"Error in frame Check:{count}",mcolor="yellow")
@@ -777,7 +778,7 @@ class ExtractFrames(object):
             #cap.set(cv2.CAP_PROP_FPS, int(fps_num))
         
         fps = 30
-        video_length = int(cap.get(cv.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
+        video_length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) - 1 # frame numbers
         return video_length
         #duration = video_length/fps  
 
@@ -1020,4 +1021,4 @@ if __name__=="__main__":
     default_fps = True
     fig_save = True
     verbose = 0
-    main(data_dir,ppg_feats)
+    #main(data_dir,ppg_feats)
