@@ -836,6 +836,7 @@ def main(data_dir,ppg_feats):
 
     _gen_ppg = ExtractFrames(data_dir)
     for root, dirs, files in tqdm(sorted(os.walk(data_dir))):
+
         for file in files:
             LOG_INFO(f"File name= {file}", mcolor="green")
             if default_fps == True:

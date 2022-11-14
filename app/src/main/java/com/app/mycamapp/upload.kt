@@ -1,44 +1,54 @@
 package com.app.mycamapp
 
+//import jdk.nashorn.internal.objects.NativeRegExp.source
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
+import android.os.*
+import android.os.StrictMode.VmPolicy
+import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.app.mycamapp.databinding.ActivityUploadBinding
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import java.io.File
+import kotlin.Int as Int1
 
 
 class upload : AppCompatActivity() {
     companion object {
 
         private const val STORAGE_CODE_PERMISSIONS = 100
+        private const val PICKFILE_RESULT_CODE = 110
     }
     lateinit var viewBinding: ActivityUploadBinding
     lateinit var t: TextView
     lateinit var b: Button
-  lateinit var handler:Handler
+    lateinit var c: Button
+
+    lateinit var handler:Handler
+    lateinit var filepath:String
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
         viewBinding= ActivityUploadBinding.inflate(layoutInflater)
         b=findViewById(R.id.uploadbutton)
+        c=findViewById(R.id.selectbutton)
         t=findViewById(R.id.hello)
-
+        val builder = VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
 
         b.setOnClickListener {
 
@@ -53,9 +63,54 @@ class upload : AppCompatActivity() {
 
 
         }
+        c.setOnClickListener{
+            val chooseFile: Intent
+            val intent: Intent
+            chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+            chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
+            val file = File(
+                Environment.getExternalStorageDirectory().absolutePath, "Movies/CameraX-Video"
+
+            )
+            chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            chooseFile.setDataAndType (  Uri.fromFile(file), "video/mp4")
+
+            intent = Intent.createChooser(chooseFile, "Choose a file")
+            startActivityForResult(intent, PICKFILE_RESULT_CODE)
+
+        }
+
+
 
     }
+//    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
+//        var cursor: Cursor? = null
+//        return try {
+//            val arr = arrayOf(MediaStore.Images.Media.DATA)
+//            cursor = cntx.getContentResolver().query(uri, arr, null, null, null)
+//            val column_index: Int1 = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+//            cursor.moveToFirst()
+//            cursor.getString(column_index)
+//        } finally {
+//            cursor?.close()
+//        }
+//    }
+   override fun onActivityResult(requestCode: kotlin.Int, resultCode: kotlin.Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
+            val content_describer: Uri? = data?.data
+            val src = content_describer!!.path
 
+            val uriPathHelper = URIPathHelper()
+             filepath = uriPathHelper.getPath(this, content_describer).toString()
+            val filedir = filepath.substring(0,filepath.lastIndexOf("/")+1)
+            val filename = filepath.substring(filepath.lastIndexOf("/")+1)
+
+            t.text=filepath.toString()
+
+
+        }
+    }
     private fun getPythonStarted(){
         if(!Python.isStarted())
         {
@@ -66,6 +121,7 @@ class upload : AppCompatActivity() {
         val abc=pythonfile.callAttr("main","/storage/emulated/0/Download","/storage/emulated/0/Download/Output/ppg_feats.csv")
         t.text = abc.toString()
     }
+
 
     private fun requestPermission(){
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){
@@ -122,7 +178,7 @@ class upload : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
+        requestCode: Int1, permissions: Array<String>, grantResults:
         IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
