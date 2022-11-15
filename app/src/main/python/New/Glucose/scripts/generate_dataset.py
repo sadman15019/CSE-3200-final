@@ -6,6 +6,7 @@ import sys
 sys.path.append('../')
 import os
 import argparse
+from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
 from numpy import array
@@ -26,6 +27,7 @@ import sys
 from numpy import NaN, Inf, arange, isscalar, asarray
 from scipy.signal import butter, filtfilt, sosfilt
 from random import randint
+
 
 class config:
     #---------------------------------
@@ -814,7 +816,23 @@ frame_rate = 0.0167
 default_fps = True
 fig_save = True
 verbose = 0
-def main(data_dir,ppg_feats):
+####*IMPORANT*: Have to do this line *before* importing tensorflow
+os.environ['PYTHONHASHSEED']=str(1)
+
+import tensorflow as tf
+from tensorflow import keras
+import tensorflow.keras as keras
+import tensorflow.keras.layers 
+import random
+import pandas as pd
+import numpy as np
+#import keras
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, BatchNormalization, Activation, Dropout
+from keras import optimizers
+
+ 
+def main(data_dir,ppg_feats,age,gender):
     ##---------------------------------
     # data_dir        =   args.data_dir
     # save_dir        =   args.save_dir
@@ -836,7 +854,6 @@ def main(data_dir,ppg_feats):
 
     _gen_ppg = ExtractFrames(data_dir)
     for root, dirs, files in tqdm(sorted(os.walk(data_dir))):
-
         for file in files:
             LOG_INFO(f"File name= {file}", mcolor="green")
             if default_fps == True:
@@ -901,7 +918,7 @@ def main(data_dir,ppg_feats):
                 _ppg = PPG(_signal)
                 rev_PPG_signal = _ppg.bandPass()
                 _PPG_signal = rev_PPG_signal[::-1] # reverse bandpass signal (like. PPG)
-               # plot_time_series(_PPG_signal, out_img_dir, 'r', str(file.split(".")[0])+'- BandPass Signal', fig_save=fig_save, verbose=verbose)
+                plot_time_series(_PPG_signal, "/storage/emulated/0/Download/Output", 'r', 'BandPass Signal', fig_save=fig_save, verbose=verbose)
                 
                 ## Save PPG singals w.r.t video
                 file_name_lst.append(file)
@@ -954,6 +971,7 @@ def main(data_dir,ppg_feats):
                     _feat_ppg49.insert(0, 20)
                     _feat_ppg49.append(_feat_svri)
                     features_set.append(_feat_ppg49)
+                    
 
         
                 except Exception as e:
@@ -973,9 +991,52 @@ def main(data_dir,ppg_feats):
     ## make ppg features .csv file
     headers = ['ID', 'Systolic_peak(x)', 'Max. Slope(c)', 'Time of Max. Slope(t_ms)', 'Prev. point a_ip(d)', 'Time of a_ip(t_ip)', 'Diastolic_peak(y)', 'Dicrotic_notch(z)', 'Pulse_interval(tpi)', 'Systolic_peak_time(t1)', 'Diastolic_peak_time(t2)', 'Dicrotic_notch_time(t3)', 'w', 'Inflection_point_area_ratio(A2/A1)', 'a1','b1', 'e1', 'l1', 'a2','b2','e2', 'ta1', 'tb1', 'te1', 'tl1', 'ta2', 'tb2', 'te2', 'Fundamental_component_frequency(fbase)', 'Fundamental_component_magnitude(|sbase|)', '2nd_harmonic_frequency(f2nd)', '2nd_harmonic_magnitude(|s2nd|)', '3rd_harmonic_frequency(f3rd)', '3rd_harmonic_magnitude(|s3rd|)', 'Stress-induced_vascular_response_index(sVRI)']
     print(len(headers))
-    df_in = pd.DataFrame(features_set, columns=headers)
+    df_input = pd.DataFrame(features_set, columns=headers)
+
+    df_input.insert(0, 'Age', float(age))#pass from android
+    df_input.insert(1, 'Sex(M/F)', gender)#
+    #dataFr.head()
+    #dataFr.shape
+    df_input.to_csv(ppg_feats)
+    csv=os.path.join(os.path.dirname(__file__),"preprocessed_PPG-34.csv")
+    df = pd.read_csv(csv)
+    df.drop(df.columns[[0, 1, 40]], axis=1, inplace=True) 
+    df.shape
+    Xorg = df.to_numpy()
+    scaler = StandardScaler()
+    Xscaled = scaler.fit_transform(Xorg)
+    Xmeans = scaler.mean_
+    Xstds = scaler.scale_
+    Gl_means, GL_std = Xmeans[37], Xstds[37]
+    Hb_means, Hb_std = Xmeans[36], Xstds[36]
+    df_in = df_input.append(df, ignore_index = True)
     df_in.to_csv(ppg_feats)
-    return _feat_ppg49
+
+    #standardization 
+    Xorg_in = df_in.to_numpy()
+    scaler_in = StandardScaler()
+    Xscaled_in = scaler_in.fit_transform(Xorg_in)
+    ## store these off for predictions with unseen data
+    Xmeans_in = scaler_in.mean_
+    Xstds_in = scaler_in.scale_
+    X = Xscaled_in[:1, 0:36]
+    get_best_ind_final_Gl = [0, 1, 2, 4, 5, 6, 7, 10, 11, 12, 13, 14, 17, 18, 20, 21, 22, 26, 27, 30, 32, 35] 
+    get_best_ind_final_Hb = [0, 1, 2, 3, 4, 5, 7, 8, 10, 11, 14, 18, 19, 20, 21, 22, 24, 26, 27, 30, 32, 35] 
+    X_Gl = X[:, get_best_ind_final_Gl]
+    X_Hb = X[:, get_best_ind_final_Hb]
+    model_path=os.path.join(os.path.dirname(__file__),'DNN_model_Gl.h5')
+    model_Gl = tf.keras.models.load_model(model_path)
+    Gl = model_Gl.predict(X_Gl) ### Estimated of Gl Level
+    G_estimate = (Gl * GL_std) + Gl_means
+   # print("Estimated Gl (mmol/L): " + str(G_estimate))
+    #Add two dataframe 
+    #df_in = dataFr.append(df, ignore_index = True)
+    model_path=os.path.join(os.path.dirname(__file__),'DNN_model_Hb.h5')
+    model_Hb = tf.keras.models.load_model(model_path)
+    Hb = model_Hb.predict(X_Hb) ### Estimated of Hb Level
+    Hb_estimate = (Hb * Hb_std) + Hb_means
+    #print("Estimated Hemoglobin (g/dL): " + str(Hb_estimate))
+    return str(Hb_estimate)
 
 if __name__=="__main__":
     '''

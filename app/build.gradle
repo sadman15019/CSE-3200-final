@@ -34,6 +34,9 @@ android {
                 install "pillow"
                 install "opencv-python"
                 install "ffmpeg"
+                install "scikit-learn"
+                install "tensorflow==2.1"
+                install "keras==2.3.1"
 
 
             }

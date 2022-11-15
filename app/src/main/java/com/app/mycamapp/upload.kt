@@ -32,6 +32,10 @@ class upload : AppCompatActivity() {
         private const val STORAGE_CODE_PERMISSIONS = 100
         private const val PICKFILE_RESULT_CODE = 110
     }
+    lateinit var age:String
+    lateinit var gender:String
+    var g: kotlin.Int =-1
+    var a: kotlin.Int =-1
     lateinit var viewBinding: ActivityUploadBinding
     lateinit var t: TextView
     lateinit var b: Button
@@ -44,6 +48,8 @@ class upload : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
         viewBinding= ActivityUploadBinding.inflate(layoutInflater)
+        age=intent.getStringExtra("age").toString()
+        gender=intent.getStringExtra("gender").toString()
         b=findViewById(R.id.uploadbutton)
         c=findViewById(R.id.selectbutton)
         t=findViewById(R.id.hello)
@@ -112,13 +118,22 @@ class upload : AppCompatActivity() {
         }
     }
     private fun getPythonStarted(){
+        if(gender=="Male")
+        {
+            g=1
+        }
+        else
+        {
+            g=0
+        }
+        a=age.toInt()
         if(!Python.isStarted())
         {
             Python.start(AndroidPlatform(this))
         }
         val python=Python.getInstance()
         val pythonfile=python.getModule("generate_dataset")
-        val abc=pythonfile.callAttr("main","/storage/emulated/0/Download","/storage/emulated/0/Download/Output/ppg_feats.csv")
+        val abc=pythonfile.callAttr("main","/storage/emulated/0/Download","/storage/emulated/0/Download/Output/ppg_feats.csv",a,g)
         t.text = abc.toString()
     }
 

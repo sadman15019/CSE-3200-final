@@ -95,6 +95,8 @@ class MainActivity : AppCompatActivity() {
             viewBinding.stopbtn.isVisible=false
             viewBinding.pause.isVisible=false
             val intent = Intent(this,upload::class.java)
+            intent.putExtra("gender",gender)
+            intent.putExtra("age",age)
             startActivity(intent)
            // return
         }
