@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.app.mycamapp.databinding.ActivityUploadBinding
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
@@ -40,9 +41,12 @@ class upload : AppCompatActivity() {
     lateinit var t: TextView
     lateinit var b: Button
     lateinit var c: Button
+    lateinit var selectbtn:Button
 
     lateinit var handler:Handler
     lateinit var filepath:String
+    lateinit var filedir:String
+    lateinit var filename:String
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -53,12 +57,14 @@ class upload : AppCompatActivity() {
         b=findViewById(R.id.uploadbutton)
         c=findViewById(R.id.selectbutton)
         t=findViewById(R.id.hello)
+        selectbtn=findViewById(R.id.selectbutton)
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-
+       b.isVisible=false
         b.setOnClickListener {
+           if(filedir.isNotEmpty() && filename.isNotEmpty())
+           {getPythonStarted()}
 
-            getPythonStarted()
             handler= Handler()
             handler.postDelayed({
                 val intent = Intent(this,WaitActivity::class.java)
@@ -89,6 +95,7 @@ class upload : AppCompatActivity() {
 
 
     }
+
 //    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
 //        var cursor: Cursor? = null
 //        return try {
@@ -109,10 +116,11 @@ class upload : AppCompatActivity() {
 
             val uriPathHelper = URIPathHelper()
              filepath = uriPathHelper.getPath(this, content_describer).toString()
-            val filedir = filepath.substring(0,filepath.lastIndexOf("/")+1)
-            val filename = filepath.substring(filepath.lastIndexOf("/")+1)
+            filedir = filepath.substring(0,filepath.lastIndexOf("/"))
+             filename = filepath.substring(filepath.lastIndexOf("/")+1)
 
-            t.text=filepath.toString()
+            selectbtn.text=filename.toString()
+            b.isVisible=true
 
 
         }
@@ -133,7 +141,7 @@ class upload : AppCompatActivity() {
         }
         val python=Python.getInstance()
         val pythonfile=python.getModule("generate_dataset")
-        val abc=pythonfile.callAttr("main","/storage/emulated/0/Download","/storage/emulated/0/Download/Output/ppg_feats.csv",a,g)
+        val abc=pythonfile.callAttr("main",filedir,"/storage/emulated/0/Download/Output/ppg_feats.csv",a,g,filename)
         t.text = abc.toString()
     }
 

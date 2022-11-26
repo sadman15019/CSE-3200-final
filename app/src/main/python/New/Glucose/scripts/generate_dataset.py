@@ -832,7 +832,7 @@ from keras.layers import Dense, Dropout, BatchNormalization, Activation, Dropout
 from keras import optimizers
 
  
-def main(data_dir,ppg_feats,age,gender):
+def main(data_dir,ppg_feats,age,gender,name):
     ##---------------------------------
     # data_dir        =   args.data_dir
     # save_dir        =   args.save_dir
@@ -855,6 +855,7 @@ def main(data_dir,ppg_feats,age,gender):
     _gen_ppg = ExtractFrames(data_dir)
     for root, dirs, files in tqdm(sorted(os.walk(data_dir))):
         for file in files:
+          if(file == name):
             LOG_INFO(f"File name= {file}", mcolor="green")
             if default_fps == True:
                 frames_fps = _gen_ppg.video_to_frames(file, frames_save, fps_num)
