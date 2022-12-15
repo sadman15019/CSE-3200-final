@@ -108,6 +108,7 @@ class DataUpdate : AppCompatActivity() {
             intent.putExtra("gender",gender)
             intent.putExtra("age",age)
             startActivity(intent)
+            finish()
 
         }
 

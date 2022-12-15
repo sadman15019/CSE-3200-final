@@ -34,11 +34,10 @@ class WaitActivity : AppCompatActivity() {
             .into(ecgimg)
         handler= Handler()
         handler.postDelayed({
-            val intent = Intent(this,upload::class.java)
-            startActivity(intent)
+            //val intent = Intent(this,u::class.java)
+          // startActivity(intent)
             finish()
-        },15000)
-
+        },30000)
 
 
     }

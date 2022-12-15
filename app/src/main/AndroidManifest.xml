@@ -7,26 +7,14 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission
-        android:name="android.permission.READ_MEDIA_VIDEO"
-        />
-    <uses-permission
-        android:name="android.permission.ACCESS_MEDIA_LOCATION"
-        />
-    <uses-permission
-        android:name="android.permission.ACCESS_OPEN_DOCUMENT"
-        />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_OPEN_DOCUMENT" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-
-        />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,12 +27,14 @@
         android:theme="@style/Theme.Mycamapp"
         tools:targetApi="31">
         <activity
+            android:name=".result"
+            android:exported="false" />
+        <activity
             android:name=".WaitActivity"
             android:exported="false" />
         <activity
             android:name=".upload"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -60,7 +50,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

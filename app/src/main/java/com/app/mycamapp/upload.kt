@@ -21,8 +21,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.app.mycamapp.databinding.ActivityUploadBinding
+import com.chaquo.python.PyObject
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.Int as Int1
 
@@ -33,70 +37,101 @@ class upload : AppCompatActivity() {
         private const val STORAGE_CODE_PERMISSIONS = 100
         private const val PICKFILE_RESULT_CODE = 110
     }
-    lateinit var age:String
-    lateinit var gender:String
-    var g: kotlin.Int =-1
-    var a: kotlin.Int =-1
+
+    lateinit var age: String
+    lateinit var gender: String
+    lateinit var abc:String
+    var g: kotlin.Int = -1
+    var a: kotlin.Int = -1
     lateinit var viewBinding: ActivityUploadBinding
     lateinit var t: TextView
     lateinit var b: Button
     lateinit var c: Button
-    lateinit var selectbtn:Button
+    lateinit var selectbtn: Button
 
-    lateinit var handler:Handler
-    lateinit var filepath:String
-    lateinit var filedir:String
-    lateinit var filename:String
+    lateinit var handler: Handler
+    lateinit var filepath: String
+    lateinit var filedir: String
+    lateinit var filename: String
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
-        viewBinding= ActivityUploadBinding.inflate(layoutInflater)
-        age=intent.getStringExtra("age").toString()
-        gender=intent.getStringExtra("gender").toString()
-        b=findViewById(R.id.uploadbutton)
-        c=findViewById(R.id.selectbutton)
-        t=findViewById(R.id.hello)
-        selectbtn=findViewById(R.id.selectbutton)
+        viewBinding = ActivityUploadBinding.inflate(layoutInflater)
+        age = intent.getStringExtra("age").toString()
+        gender = intent.getStringExtra("gender").toString()
+        b = findViewById(R.id.uploadbutton)
+        c = findViewById(R.id.selectbutton)
+        t = findViewById(R.id.hello)
+        selectbtn = findViewById(R.id.selectbutton)
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-       b.isVisible=false
+        b.isVisible = false
         b.setOnClickListener {
-           if(filedir.isNotEmpty() && filename.isNotEmpty())
-           {getPythonStarted()}
+            if (filedir.isNotEmpty() && filename.isNotEmpty()) {
 
-            handler= Handler()
-            handler.postDelayed({
-                val intent = Intent(this,WaitActivity::class.java)
-                startActivity(intent)
-                finish()
-            },20000)
+                GlobalScope.launch {
+                    var intent = Intent(this@upload, WaitActivity::class.java)
+                    /* intent.putExtra("age", age)
+                     intent.putExtra("gender", gender)
+                     intent.putExtra("filename", filename)
+                     intent.putExtra("filedir", filedir)*/
 
+                    startActivity(intent)
+
+                    if(gender=="Male")
+                    {
+                        g=1
+                    }
+                    else
+                    {
+                        g=0
+                    }
+                    a=age.toInt()
+                    if(!Python.isStarted())
+                    {
+                        Python.start(AndroidPlatform(this@upload))
+                    }
+                    val python=Python.getInstance()
+                    val pythonfile=python.getModule("generate_dataset")
+                    abc=pythonfile.callAttr("main",filedir,"/storage/emulated/0/Download/Output/ppg_feats.csv",a,g,filename).toString()
+                    intent = Intent(this@upload, result::class.java)
+                    intent.putExtra("abc", abc)
+                    startActivity(intent)
+                    finish()
+
+                }
+
+                }
+
+
+
+
+            }
+            c.setOnClickListener {
+                if(checkPermission()==false){
+                    requestPermission()
+                }
+                val chooseFile: Intent
+                val intent: Intent
+                chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+                chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
+                val file = File(
+                    Environment.getExternalStorageDirectory().absolutePath, "Movies/CameraX-Video"
+
+                )
+                chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                chooseFile.setDataAndType(Uri.fromFile(file), "video/mp4")
+
+                intent = Intent.createChooser(chooseFile, "Choose a file")
+                startActivityForResult(intent, PICKFILE_RESULT_CODE)
+
+            }
 
 
         }
-        c.setOnClickListener{
-            val chooseFile: Intent
-            val intent: Intent
-            chooseFile = Intent(Intent.ACTION_GET_CONTENT)
-            chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
-            val file = File(
-                Environment.getExternalStorageDirectory().absolutePath, "Movies/CameraX-Video"
 
-            )
-            chooseFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            chooseFile.setDataAndType (  Uri.fromFile(file), "video/mp4")
-
-            intent = Intent.createChooser(chooseFile, "Choose a file")
-            startActivityForResult(intent, PICKFILE_RESULT_CODE)
-
-        }
-
-
-
-    }
-
-//    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
+        //    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
 //        var cursor: Cursor? = null
 //        return try {
 //            val arr = arrayOf(MediaStore.Images.Media.DATA)
@@ -108,42 +143,52 @@ class upload : AppCompatActivity() {
 //            cursor?.close()
 //        }
 //    }
-   override fun onActivityResult(requestCode: kotlin.Int, resultCode: kotlin.Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
-            val content_describer: Uri? = data?.data
-            val src = content_describer!!.path
+        override fun onActivityResult(
+            requestCode: kotlin.Int,
+            resultCode: kotlin.Int,
+            data: Intent?
+        ) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
+                val content_describer: Uri? = data?.data
+                val src = content_describer!!.path
 
-            val uriPathHelper = URIPathHelper()
-             filepath = uriPathHelper.getPath(this, content_describer).toString()
-            filedir = filepath.substring(0,filepath.lastIndexOf("/"))
-             filename = filepath.substring(filepath.lastIndexOf("/")+1)
+                val uriPathHelper = URIPathHelper()
+                filepath = uriPathHelper.getPath(this, content_describer).toString()
+                filedir = filepath.substring(0, filepath.lastIndexOf("/"))
+                filename = filepath.substring(filepath.lastIndexOf("/") + 1)
 
-            selectbtn.text=filename.toString()
-            b.isVisible=true
+                selectbtn.text = filename.toString()
+                b.isVisible = true
 
 
+            }
         }
-    }
-    private fun getPythonStarted(){
-        if(gender=="Male")
-        {
-            g=1
+
+        private fun getPythonStarted() {
+            if (gender == "Male") {
+                g = 1
+            } else {
+                g = 0
+            }
+            a = age.toInt()
+            if (!Python.isStarted()) {
+                Python.start(AndroidPlatform(this))
+            }
+            val python = Python.getInstance()
+            val pythonfile = python.getModule("generate_dataset")
+            val abc = pythonfile.callAttr(
+                "main",
+                filedir,
+                "/storage/emulated/0/Download/Output/ppg_feats.csv",
+                a,
+                g,
+                filename
+            )
+
+            //return abc
+            t.text = abc.toString()
         }
-        else
-        {
-            g=0
-        }
-        a=age.toInt()
-        if(!Python.isStarted())
-        {
-            Python.start(AndroidPlatform(this))
-        }
-        val python=Python.getInstance()
-        val pythonfile=python.getModule("generate_dataset")
-        val abc=pythonfile.callAttr("main",filedir,"/storage/emulated/0/Download/Output/ppg_feats.csv",a,g,filename)
-        t.text = abc.toString()
-    }
 
 
     private fun requestPermission(){
@@ -172,19 +217,18 @@ class upload : AppCompatActivity() {
         }
     }
 
-    private  val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){
-            if (Environment.isExternalStorageManager()){
-                getPythonStarted()
+        private val storageActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        getPythonStarted()
+                    }
+                } else {
+                    //below 11
+
+                }
+
             }
-        }
-
-        else{
-            //below 11
-
-        }
-
-    }
 
     private fun checkPermission():Boolean{
         return if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){
@@ -198,27 +242,28 @@ class upload : AppCompatActivity() {
     }
 
 
+        override fun onRequestPermissionsResult(
+            requestCode: Int1, permissions: Array<String>, grantResults:
+            IntArray
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int1, permissions: Array<String>, grantResults:
-        IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if(requestCode== STORAGE_CODE_PERMISSIONS){
-            if(grantResults.isNotEmpty()){
-                val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
-                val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
-                if(read && write){
-                    getPythonStarted()
-                }
-                else{
-                    Toast.makeText(this,
-                        "Permissions not granted by the user.",
-                        Toast.LENGTH_SHORT).show()
+            if (requestCode == STORAGE_CODE_PERMISSIONS) {
+                if (grantResults.isNotEmpty()) {
+                    val write = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    val read = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    if (read && write) {
+                        getPythonStarted()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Permissions not granted by the user.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
-    }
 
-}
+
+    }
