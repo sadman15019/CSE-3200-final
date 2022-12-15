@@ -1037,7 +1037,7 @@ def main(data_dir,ppg_feats,age,gender,name):
     Hb = model_Hb.predict(X_Hb) ### Estimated of Hb Level
     Hb_estimate = (Hb * Hb_std) + Hb_means
     #print("Estimated Hemoglobin (g/dL): " + str(Hb_estimate))
-    return "Hb:"+str(Hb_estimate)+" Gl:"+str(G_estimate)
+    return str(Hb_estimate)+":"+str(G_estimate)
 
 if __name__=="__main__":
     '''

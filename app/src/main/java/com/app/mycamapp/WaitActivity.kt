@@ -37,7 +37,7 @@ class WaitActivity : AppCompatActivity() {
             //val intent = Intent(this,u::class.java)
           // startActivity(intent)
             finish()
-        },30000)
+        },60000)
 
 
     }
