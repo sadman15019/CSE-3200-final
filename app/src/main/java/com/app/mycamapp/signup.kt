@@ -1,5 +1,6 @@
 package com.app.mycamapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -20,12 +21,15 @@ class signup : AppCompatActivity() {
             val email=binding.signupemail.text.toString()
             val name = binding.signuppass.text.toString()
             updateData(email,name)
+            val intent= Intent(this,login::class.java)
+            startActivity(intent);
+            finish()
         }
     }
     private fun updateData(email: String, pass: String) {
 
         database = FirebaseDatabase.getInstance().getReference("account")
-        ref = FirebaseDatabase.getInstance().getReference().child("account")
+       /* ref = FirebaseDatabase.getInstance().getReference().child("account")
         ref.addValueEventListener(object:ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 maxid=(snapshot.getChildrenCount().toInt())
@@ -36,14 +40,16 @@ class signup : AppCompatActivity() {
 
             }
 
-        })
+        })*/
+
+        val userid=database.push().key!!
 
         val user = mapOf<String,String>(
             "Email" to email,
             "Password" to pass
-        )
+             )
 
-            database.child(maxid.toString()).updateChildren(user).addOnSuccessListener {
+            database.child(userid).setValue(user).addOnSuccessListener {
             binding.signupemail.text.clear()
             binding.signuppass.text.clear()
             Toast.makeText(this,"Successfuly Updated", Toast.LENGTH_SHORT).show()

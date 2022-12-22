@@ -24,6 +24,8 @@ import com.app.mycamapp.databinding.ActivityUploadBinding
 import com.chaquo.python.PyObject
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,9 +39,10 @@ class upload : AppCompatActivity() {
         private const val STORAGE_CODE_PERMISSIONS = 100
         private const val PICKFILE_RESULT_CODE = 110
     }
-
+    private lateinit var database : DatabaseReference
     lateinit var age: String
     lateinit var gender: String
+    lateinit var email: String
     lateinit var abc:String
     var g: kotlin.Int = -1
     var a: kotlin.Int = -1
@@ -58,6 +61,7 @@ class upload : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
         viewBinding = ActivityUploadBinding.inflate(layoutInflater)
+        email = intent.getStringExtra("Email").toString()
         age = intent.getStringExtra("age").toString()
         gender = intent.getStringExtra("gender").toString()
         b = findViewById(R.id.uploadbutton)
@@ -95,8 +99,16 @@ class upload : AppCompatActivity() {
                     val python=Python.getInstance()
                     val pythonfile=python.getModule("generate_dataset")
                     abc=pythonfile.callAttr("main",filedir,"/storage/emulated/0/Download/Output/ppg_feats.csv",a,g,filename).toString()
+                    val delim = ":"
+                    val arr = abc.split(delim).toTypedArray()
+                    var gl=arr[1].toString()
+                    var hb=arr[0].toString()
+                    gl=gl.substring(2,5)
+                    hb=hb.substring(2,6)
+                    updateData(email,gl,hb)
                     intent = Intent(this@upload, result::class.java)
-                    intent.putExtra("abc", abc)
+                    intent.putExtra("gl",gl)
+                    intent.putExtra("hb", hb)
                     startActivity(intent)
                     finish()
 
@@ -189,7 +201,29 @@ class upload : AppCompatActivity() {
             //return abc
             t.text = abc.toString()
         }
+    private fun updateData(email: String, gl: String,hb:String) {
 
+        database = FirebaseDatabase.getInstance().getReference("user_record")
+
+        val userid=database.push().key!!
+
+        val user = mapOf<String,String>(
+            "Email" to email,
+            "GLucose" to gl,
+            "Hemo" to hb
+        )
+
+        database.child(userid).setValue(user).addOnSuccessListener {
+            Toast.makeText(this,"Successfuly Updated", Toast.LENGTH_SHORT).show()
+            //intent change
+            //implement code here
+
+
+        }.addOnFailureListener{
+
+            Toast.makeText(this,"Failed to Update", Toast.LENGTH_SHORT).show()
+
+        }}
 
     private fun requestPermission(){
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){

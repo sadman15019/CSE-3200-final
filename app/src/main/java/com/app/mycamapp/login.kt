@@ -31,6 +31,7 @@ class login : AppCompatActivity() {
             if(x==1)
             {
                 val intent= Intent(this,DataUpdate::class.java)
+                intent.putExtra("Email",email)
                 startActivity(intent);
                 finish()
             }
@@ -38,6 +39,11 @@ class login : AppCompatActivity() {
             {
                 Toast.makeText(this,"Invalid email or password", Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.gotosignup.setOnClickListener {
+            val intent= Intent(this,signup::class.java)
+            startActivity(intent);
+            finish()
         }
     }
     private fun getdata(e:String,p:String)

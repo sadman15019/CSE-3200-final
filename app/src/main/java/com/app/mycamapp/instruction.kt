@@ -12,12 +12,14 @@ class instruction : AppCompatActivity() {
      lateinit var gender:String
     lateinit var nid:String
     lateinit var name:String
+    lateinit var email:String
      lateinit var appcambtn:Button
     // creating a variable for our button
     lateinit var btnShowBottomSheet: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_instruction)
+        email=intent.getStringExtra("Email").toString()
         nid=intent.getStringExtra("nid").toString()
         name=intent.getStringExtra("name").toString()
         age = intent.getStringExtra("age").toString()
@@ -25,6 +27,7 @@ class instruction : AppCompatActivity() {
         appcambtn=findViewById(R.id.appcambtn)
         appcambtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("Email",email)
             intent.putExtra("nid",nid)
             intent.putExtra("name",name)
             intent.putExtra("gender",gender)

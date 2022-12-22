@@ -47,12 +47,11 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     lateinit var textView: TextView
-    private lateinit var id:String
-    private lateinit var database : DatabaseReference
     private lateinit var nid:String
     private lateinit var name:String
     private lateinit var age:String
     private lateinit var gender:String
+    private lateinit var email:String
 
     private var videoCapture:VideoCapture<Recorder>? = null
     private var recording: Recording? = null
@@ -65,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         viewBinding.pause.isVisible=false
         viewBinding.stopbtn.isVisible=false
         setContentView(viewBinding.root)
+        email=intent.getStringExtra("Email").toString()
         nid=intent.getStringExtra("nid").toString()
         name=intent.getStringExtra("name").toString()
         age=intent.getStringExtra("age").toString()
@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             viewBinding.stopbtn.isVisible=false
             viewBinding.pause.isVisible=false
             val intent = Intent(this,upload::class.java)
+            intent.putExtra("Email",email)
             intent.putExtra("gender",gender)
             intent.putExtra("age",age)
             startActivity(intent)
