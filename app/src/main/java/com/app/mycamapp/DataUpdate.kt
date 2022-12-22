@@ -102,7 +102,7 @@ class DataUpdate : AppCompatActivity() {
 
 
             updateData(nid,name,gender,age,weight)
-           val intent = Intent(this,MainActivity::class.java)
+           val intent = Intent(this,instruction::class.java)
             intent.putExtra("nid",nid)
             intent.putExtra("name",name)
             intent.putExtra("gender",gender)

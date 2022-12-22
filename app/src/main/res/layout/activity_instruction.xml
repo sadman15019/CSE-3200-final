@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".instruction">
+
+    <Button
+        android:id="@+id/appcambtn"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="426dp"
+        android:layout_marginEnd="62dp"
+        android:backgroundTint="@color/teal_700"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:text="Using App Camera"
+        android:textColor="@color/white"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <Button
+        android:id="@+id/updateBtn5"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="296dp"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/teal_700"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:text="Using Default Camera"
+        android:textColor="@color/white"
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="229dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="1dp"
+        app:srcCompat="@drawable/wavy" />
+
+    <ImageButton
+        android:id="@+id/idBtnShowBottomSheet"
+        android:layout_width="wrap_content"
+        android:layout_height="89dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="302dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="23dp"
+        app:srcCompat="@drawable/question"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</RelativeLayout>
