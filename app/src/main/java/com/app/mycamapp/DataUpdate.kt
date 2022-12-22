@@ -116,7 +116,7 @@ class DataUpdate : AppCompatActivity() {
 
     private fun updateData(nid: String, name: String, gender: String, age: String,weight:String) {
 
-        database = FirebaseDatabase.getInstance().getReference("Users")
+        database = FirebaseDatabase.getInstance().getReference("User_info")
         val user = mapOf<String,String>(
             "Name" to name,
             "Gender" to gender,

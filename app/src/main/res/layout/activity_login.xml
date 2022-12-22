@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/loginpass"
         app:layout_constraintVertical_bias="0.169" />
 
     <ImageView
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/signinbtn" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/loginpass"
         android:layout_width="336dp"
         android:layout_height="66dp"
         android:layout_marginTop="44dp"
@@ -80,10 +80,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/loginemail" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/loginemail"
         android:layout_width="336dp"
         android:layout_height="61dp"
         android:layout_marginTop="164dp"
