@@ -30,7 +30,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.text.SimpleDateFormat
 import kotlin.Int as Int1
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
 
 
 class upload : AppCompatActivity() {
@@ -107,6 +112,7 @@ class upload : AppCompatActivity() {
                     hb=hb.substring(2,6)
                     updateData(email,gl,hb)
                     intent = Intent(this@upload, result::class.java)
+                    intent.putExtra("Email",email)
                     intent.putExtra("gl",gl)
                     intent.putExtra("hb", hb)
                     startActivity(intent)
@@ -202,6 +208,9 @@ class upload : AppCompatActivity() {
             //t.text = abc.toString()
         }
     private fun updateData(email: String, gl: String,hb:String) {
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val date = Date()
+        val curdate = formatter.format(date)
 
         database = FirebaseDatabase.getInstance().getReference("user_record")
 
@@ -210,7 +219,8 @@ class upload : AppCompatActivity() {
         val user = mapOf<String,String>(
             "Email" to email,
             "GLucose" to gl,
-            "Hemo" to hb
+            "Hemo" to hb,
+            "Date" to curdate
         )
 
         database.child(userid).setValue(user).addOnSuccessListener {

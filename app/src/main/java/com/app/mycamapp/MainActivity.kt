@@ -273,10 +273,10 @@ class MainActivity : AppCompatActivity() {
                   .setCaptureRequestOption(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_OFF)
                 //.setCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
 //                .setCaptureRequestOption(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_OFF)
-//                .setCaptureRequestOption(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH)
-                 .setCaptureRequestOption(CaptureRequest.SENSOR_SENSITIVITY,100)
-                          .setCaptureRequestOption(CaptureRequest.SENSOR_FRAME_DURATION,16666666)
-                        .setCaptureRequestOption(CaptureRequest.SENSOR_EXPOSURE_TIME, 20400000)
+//                .setCaptureRequestOption(CaptureReq.uest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH)
+                 .setCaptureRequestOption(CaptureRequest.SENSOR_SENSITIVITY,800)
+                          .setCaptureRequestOption(CaptureRequest.SENSOR_FRAME_DURATION,33333333)
+                        .setCaptureRequestOption(CaptureRequest.SENSOR_EXPOSURE_TIME, 10400000)
 
             val p = preview.build()
                 .also {
@@ -353,9 +353,12 @@ class MainActivity : AppCompatActivity() {
 
             }
             val exti = Camera2Interop.Extender(preview)
-                .setCaptureRequestOption(CaptureRequest.CONTROL_MODE, CaptureRequest.CONTROL_MODE_USE_SCENE_MODE)
-
-                .setCaptureRequestOption(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, Range(60,60))
+                .setCaptureRequestOption(CaptureRequest.CONTROL_MODE, CaptureRequest.CONTROL_MODE_OFF)
+                .setCaptureRequestOption(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_OFF)
+                //.setCaptureRequestOption(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, Range(60,60))
+                .setCaptureRequestOption(CaptureRequest.SENSOR_SENSITIVITY,50)
+                .setCaptureRequestOption(CaptureRequest.SENSOR_FRAME_DURATION,16666666)
+                .setCaptureRequestOption(CaptureRequest.SENSOR_EXPOSURE_TIME, 20400000)
             val s = preview.build()
                 .also {
                     it.setSurfaceProvider(viewBinding.viewFinder.surfaceProvider)

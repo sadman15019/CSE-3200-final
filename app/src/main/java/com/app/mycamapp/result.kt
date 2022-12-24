@@ -1,5 +1,6 @@
 package com.app.mycamapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -13,15 +14,18 @@ import com.google.firebase.database.ValueEventListener
 class result : AppCompatActivity() {
     lateinit var gl_result:TextView
     lateinit var hb_result:TextView
-    lateinit var ref:DatabaseReference
+    //lateinit var ref:DatabaseReference
     lateinit var yo:TextView
     lateinit var gl:String
     lateinit var hb:String
     lateinit var c:String
+    lateinit var email:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_result)
+        email = intent.getStringExtra("Email").toString()
         gl=intent.getStringExtra("gl").toString()
         hb=intent.getStringExtra("hb").toString()
         gl_result=findViewById(R.id.GL)
@@ -37,6 +41,10 @@ class result : AppCompatActivity() {
         hb_result.text=hb
         yo.text="Hb"
 
+        var intent = Intent(this,record::class.java)
+        intent.putExtra("Email",email)
+        startActivity(intent)
+        finish()
 
     }
 }

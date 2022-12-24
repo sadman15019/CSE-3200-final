@@ -27,6 +27,7 @@
         android:theme="@style/Theme.Mycamapp"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".SplashActivity"
             android:exported="true"
             android:theme = "@style/Theme.AppCompat.DayNight.NoActionBar"
@@ -38,6 +39,15 @@
             </intent-filter>
         </activity>
 
+=======
+            android:name=".record"
+            android:exported="true">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+>>>>>>> cb53d02dacedb27e3a2baba8fd2168046fa0ae20
         <activity
             android:name=".signup"
             android:exported="true">
@@ -77,9 +87,12 @@
         <activity
             android:name=".DataUpdate"
             android:exported="true" />
+<<<<<<< HEAD
         <activity
             android:name=".StartupActivity"
             android:exported="true" />
+=======
+>>>>>>> cb53d02dacedb27e3a2baba8fd2168046fa0ae20
         <activity
             android:name=".MainActivity"
             android:exported="true" />
