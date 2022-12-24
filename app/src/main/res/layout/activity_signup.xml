@@ -10,9 +10,8 @@
         android:id="@+id/imageView13"
         android:layout_width="412dp"
         android:layout_height="105dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/oval" />
@@ -26,7 +25,6 @@
         android:textColor="#F4EFEF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,21 +68,23 @@
 
     <Button
         android:id="@+id/signupbtn"
-        android:layout_width="296dp"
-        android:layout_height="60dp"
+        android:layout_width="344dp"
+        android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="244dp"
+        android:background="#53AEB2"
         android:backgroundTint="@color/teal_700"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
         android:text="Sign Up"
         android:textColor="@color/white"
+        app:backgroundTint="#53AEB2"
         app:iconPadding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signuppass"
-        app:layout_constraintVertical_bias="0.941" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <EditText
         android:id="@+id/signuppass"
@@ -118,8 +118,9 @@
         android:layout_height="144dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.333"
         app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

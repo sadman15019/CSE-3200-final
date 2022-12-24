@@ -4,6 +4,7 @@
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="360dp"
     android:height="50dp"
+
     android:viewportWidth="360"
     android:viewportHeight="50"
 
