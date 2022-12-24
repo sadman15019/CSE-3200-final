@@ -14,6 +14,7 @@ class instruction : AppCompatActivity() {
     lateinit var name:String
     lateinit var email:String
      lateinit var appcambtn:Button
+    lateinit var mblcambtn:Button
     // creating a variable for our button
     lateinit var btnShowBottomSheet: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,7 @@ class instruction : AppCompatActivity() {
         age = intent.getStringExtra("age").toString()
         gender = intent.getStringExtra("gender").toString()
         appcambtn=findViewById(R.id.appcambtn)
+        mblcambtn=findViewById(R.id.mblcambtn)
         appcambtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             intent.putExtra("Email",email)
@@ -35,6 +37,17 @@ class instruction : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        mblcambtn.setOnClickListener {
+            val intent = Intent(this,upload::class.java)
+            intent.putExtra("Email",email)
+            intent.putExtra("nid",nid)
+            intent.putExtra("name",name)
+            intent.putExtra("gender",gender)
+            intent.putExtra("age",age)
+            startActivity(intent)
+            finish()
+        }
+
         // initializing our variable for button with its id.
         btnShowBottomSheet = findViewById(R.id.idBtnShowBottomSheet);
 

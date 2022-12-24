@@ -110,7 +110,12 @@ class upload : AppCompatActivity() {
                     var hb=arr[0].toString()
                     gl=gl.substring(2,5)
                     hb=hb.substring(2,6)
-                    updateData(email,gl,hb)
+                    val re = Regex("[^0-9.]")
+                    gl = re.replace(gl, "") // works
+                    hb = re.replace(hb, "")
+                    if (email.trim().length > 0 &&  hb.trim().length > 0) {
+                        updateData(email, gl, hb)
+                    }
                     intent = Intent(this@upload, result::class.java)
                     intent.putExtra("Email",email)
                     intent.putExtra("gl",gl)

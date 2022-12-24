@@ -57,6 +57,7 @@ class record : AppCompatActivity() {
                         i=i+1
                     }
                 }
+                rec.reverse()
                 Log.d("dfgdf","my name is sadman")
                 madapter = recycleradapter(applicationContext,rec)
                 recordRecycler.adapter = madapter
