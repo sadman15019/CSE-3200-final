@@ -10,9 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="413dp"
-        android:layout_height="232dp"
+        android:layout_height="170dp"
         android:layout_marginLeft="10dp"
-        android:background="@color/transparent"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -23,11 +23,11 @@
         <androidx.cardview.widget.CardView
             android:layout_width="398dp"
             android:layout_height="0dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+
             android:layout_marginBottom="5dp"
-            android:background="@color/transparent"
             android:backgroundTint="#FFFFFF"
             android:elevation="10dp"
             app:cardBackgroundColor="@color/white"
@@ -62,15 +62,18 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="173dp"
-                    android:layout_marginStart="44dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="25dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="128dp"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -98,8 +101,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="178dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="112dp"
+                        android:layout_height="121dp"
+                        android:layout_marginStart="45dp"
                         android:orientation="vertical">
 
                         <TextView

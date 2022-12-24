@@ -13,5 +13,7 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
-    <color name="transparent">#00FFFFFF</color>
+=======
+    <color name="tool">#66000000</color>#03989E
+>>>>>>> 461111557b873617ce05e44f88a56e9aee6458aa
 </resources>

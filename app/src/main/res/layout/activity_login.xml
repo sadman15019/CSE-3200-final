@@ -6,31 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".login">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="84dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:text="___________________"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signinbtn" />
-
     <Button
         android:id="@+id/signinbtn"
-        android:layout_width="296dp"
-        android:layout_height="60dp"
+        android:layout_width="336dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
+        android:background="#53AEB2"
         android:backgroundTint="@color/teal_700"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
         android:text="Sign In"
         android:textColor="@color/white"
+        app:backgroundTint="#53AEB2"
+        app:cornerRadius="20dp"
         app:iconPadding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginpass"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.098"
+        tools:ignore="TextContrastCheck" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -38,37 +33,27 @@
         android:layout_height="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.156"
+        app:layout_constraintVertical_bias="0.686"
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="168dp"
-        android:layout_height="33dp"
+        android:layout_width="404dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="116dp"
-        android:text="Use other Methods "
+        android:layout_marginEnd="10dp"
+        android:text="____________Use other Methods_____________ "
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signinbtn"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="84dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="60dp"
-        android:text="___________________"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/signinbtn" />
+        app:layout_constraintVertical_bias="0.239" />
 
     <EditText
         android:id="@+id/loginpass"
@@ -119,26 +104,16 @@
 
     <TextView
         android:id="@+id/gotosignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Don't have account?Signup!"
+        android:layout_width="258dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:text="Don't have account?  Signup!"
         android:textColor="#283DB8"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signinbtn" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="_________"
-        android:textColor="#283DB8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signinbtn" />
 

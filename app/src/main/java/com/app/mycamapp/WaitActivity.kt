@@ -29,7 +29,7 @@ class WaitActivity : AppCompatActivity() {
         anim1.repeatCount=ValueAnimator.INFINITE
         anim1.repeatMode=ValueAnimator.REVERSE
         anim1.start()
-        Glide.with(this).asGif().load(R.drawable.ecg3)
+        Glide.with(this).asGif().load(R.drawable.ppg1)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(ecgimg)
         handler= Handler()
