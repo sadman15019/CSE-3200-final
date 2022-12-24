@@ -883,9 +883,9 @@ def main(data_dir,ppg_feats,age,gender,name):
                         '''
 
                         ## to get a square right to left (ROI: 500x500)
-                        h= img.shape[0]//2 - 250 # height//2 - 250. where height = 1080 px
-                        w= img.shape[1] # width. where width = 1920 px
-                        img = img[h:h+500, w-500:w]
+                        #h= img.shape[0]//2 - 250 # height//2 - 250. where height = 1080 px
+                        #w= img.shape[1] # width. where width = 1920 px
+                        #img = img[h:h+500, w-500:w]
                         # print("Image size: " + str(img.shape))
                         
 
