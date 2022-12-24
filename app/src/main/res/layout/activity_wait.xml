@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/gifImage"
-        android:layout_width="438dp"
-        android:layout_height="134dp"
+        android:layout_width="629dp"
+        android:layout_height="114dp"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="238dp"
         app:layout_constraintBottom_toBottomOf="parent"

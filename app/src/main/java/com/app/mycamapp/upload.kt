@@ -47,7 +47,7 @@ class upload : AppCompatActivity() {
     var g: kotlin.Int = -1
     var a: kotlin.Int = -1
     lateinit var viewBinding: ActivityUploadBinding
-    lateinit var t: TextView
+   // lateinit var t: TextView
     lateinit var b: Button
     lateinit var c: Button
     lateinit var selectbtn: Button
@@ -66,7 +66,7 @@ class upload : AppCompatActivity() {
         gender = intent.getStringExtra("gender").toString()
         b = findViewById(R.id.uploadbutton)
         c = findViewById(R.id.selectbutton)
-        t = findViewById(R.id.hello)
+        //t = findViewById(R.id.hello)
         selectbtn = findViewById(R.id.selectbutton)
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
@@ -199,7 +199,7 @@ class upload : AppCompatActivity() {
             )
 
             //return abc
-            t.text = abc.toString()
+            //t.text = abc.toString()
         }
     private fun updateData(email: String, gl: String,hb:String) {
 

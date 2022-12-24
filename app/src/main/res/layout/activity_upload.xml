@@ -3,46 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/up"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg3"
     tools:context=".upload">
 
     <Button
         android:id="@+id/selectbutton"
-        android:layout_width="188dp"
-        android:layout_height="63dp"
+        android:layout_width="278dp"
+        android:layout_height="70dp"
         android:layout_marginTop="224dp"
-        android:layout_marginBottom="34dp"
-        android:text="select a file"
+        android:layout_marginBottom="8dp"
+        android:text="Choose video"
         app:layout_constraintBottom_toTopOf="@+id/uploadbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002" />
 
     <Button
         android:id="@+id/uploadbutton"
-        android:layout_width="128dp"
-        android:layout_height="62dp"
+        android:layout_width="278dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="268dp"
+        android:background="#A54848"
         android:backgroundTint="#CD0000"
-        android:text="Upload"
+        android:text="upload"
+        app:backgroundTint="#D54D4D"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/ic_baseline_drive_folder_upload_24"
+        app:iconGravity="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectbutton"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/hello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadbutton"
-        app:layout_constraintVertical_bias="0.695" />
 </androidx.constraintlayout.widget.ConstraintLayout>
