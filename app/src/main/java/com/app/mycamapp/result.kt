@@ -3,6 +3,8 @@ package com.app.mycamapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
@@ -14,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 class result : AppCompatActivity() {
     lateinit var gl_result:TextView
     lateinit var hb_result:TextView
+    lateinit var btn:Button
     //lateinit var ref:DatabaseReference
     lateinit var yo:TextView
     lateinit var gl:String
@@ -30,6 +33,8 @@ class result : AppCompatActivity() {
         hb=intent.getStringExtra("hb").toString()
         gl_result=findViewById(R.id.GL)
         hb_result=findViewById(R.id.Hb)
+        btn = findViewById(R.id.savebtn)
+
         yo=findViewById(R.id.hbtext)
         /*val delim = ":"
         val arr = c.split(delim).toTypedArray()
@@ -40,11 +45,15 @@ class result : AppCompatActivity() {
         gl_result.text=gl
         hb_result.text=hb
         yo.text="Hb"
+ btn.setOnClickListener {
+     var intent = Intent(this, record::class.java)
+     intent.putExtra("Email", email)
+     startActivity(intent)
 
-        var intent = Intent(this,record::class.java)
-        intent.putExtra("Email",email)
-        startActivity(intent)
-        finish()
-
+ }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu);
+        return true
     }
 }

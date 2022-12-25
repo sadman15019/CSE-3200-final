@@ -24,6 +24,7 @@ import android.util.Log
 import android.util.Range
 import android.util.Size
 import android.view.LayoutInflater
+import android.view.Menu
 import android.widget.Button
 import android.widget.TextView
 import androidx.camera.camera2.interop.Camera2Interop
@@ -85,7 +86,10 @@ class MainActivity : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
      }
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu);
+        return true
+    }
     private fun stopVideo() {
         val curRecording = recording
         if (curRecording != null) {

@@ -12,6 +12,7 @@ import android.os.StrictMode.VmPolicy
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
+import android.view.Menu
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -148,6 +149,11 @@ class upload : AppCompatActivity() {
 
 
         }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu);
+        return true
+    }
 
         //    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
 //        var cursor: Cursor? = null

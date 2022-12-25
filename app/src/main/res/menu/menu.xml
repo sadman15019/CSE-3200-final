@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/add_action"
+        android:icon="@drawable/ic_baseline_arrow_back_24"
+        android:title="S"
+        app:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/settings_action"
+        android:icon="@drawable/ic_baseline_help_24"
+        android:title="Se"
+        app:showAsAction="ifRoom"></item>
+    <item
+        android:id="@+id/action"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="Sen"
+        app:showAsAction="ifRoom"></item>
+</menu>

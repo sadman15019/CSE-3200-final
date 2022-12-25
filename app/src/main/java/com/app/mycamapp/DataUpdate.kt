@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -117,6 +118,10 @@ class DataUpdate : AppCompatActivity() {
 
         }
 
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu);
+        return true
     }
     private fun updateData(e:String, nid: String, name: String, gender: String, age: String,weight:String) {
         database = FirebaseDatabase.getInstance().getReference("user_info")

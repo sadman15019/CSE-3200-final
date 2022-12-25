@@ -3,6 +3,7 @@ package com.app.mycamapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.ImageButton
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -71,6 +72,10 @@ class instruction : AppCompatActivity() {
             // a show method to display a dialog.
             dialog.show()
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu);
+        return true
     }
     private fun nextbottomsheet() {  // on below line we are creating a new bottom sheet dialog.
     val dialog = BottomSheetDialog(this)
