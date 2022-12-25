@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/updateBtn5"
+        android:id="@+id/mblcambtn"
         android:layout_width="wrap_content"
         android:layout_height="112dp"
         android:layout_alignParentStart="true"

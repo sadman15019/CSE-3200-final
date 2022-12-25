@@ -27,9 +27,12 @@
         android:theme="@style/Theme.Mycamapp"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
+=======
+>>>>>>> 4e1b5c440daae7577df15c6891aca9e16c0933d3
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
@@ -39,6 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4e1b5c440daae7577df15c6891aca9e16c0933d3
         <activity
             android:name=".record"
             android:exported="true">
@@ -83,9 +90,17 @@
         <activity
             android:name=".DataUpdate"
             android:exported="true" />
+<<<<<<< HEAD
         <activity
             android:name=".StartupActivity"
             android:exported="true" />
+=======
+
+        <activity
+            android:name=".StartupActivity"
+            android:exported="true" />
+
+>>>>>>> 4e1b5c440daae7577df15c6891aca9e16c0933d3
         <activity
             android:name=".MainActivity"
             android:exported="true" />
