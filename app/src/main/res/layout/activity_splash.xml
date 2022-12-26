@@ -9,14 +9,26 @@
 
     <ImageView
         android:id="@+id/blood2"
-        android:layout_width="343dp"
-        android:layout_height="308dp"
+        android:layout_width="312dp"
+        android:layout_height="272dp"
         android:alpha="0.7"
         android:src="@drawable/blood"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.357" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="325dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/blood2"
+        app:srcCompat="@drawable/glucoshema" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

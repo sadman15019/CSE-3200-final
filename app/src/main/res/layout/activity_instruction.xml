@@ -60,7 +60,7 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="229dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -68,20 +68,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="1dp"
+        android:scaleType="fitStart"
         app:srcCompat="@drawable/wavy" />
-
-    <ImageButton
-        android:id="@+id/idBtnShowBottomSheet"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="314dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="38dp"
-        app:srcCompat="@drawable/ic_baseline_help_24"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:srcCompat="@drawable/ic_baseline_help_24" />
 
 </RelativeLayout>

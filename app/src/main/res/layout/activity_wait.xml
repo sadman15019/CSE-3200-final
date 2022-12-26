@@ -9,10 +9,6 @@
 
     <ImageView
         android:id="@+id/gifImage"
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e1b5c440daae7577df15c6891aca9e16c0933d3
         android:layout_width="629dp"
         android:layout_height="114dp"
         android:layout_marginTop="36dp"

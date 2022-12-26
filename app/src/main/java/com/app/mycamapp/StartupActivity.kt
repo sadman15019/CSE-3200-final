@@ -21,6 +21,7 @@ class StartupActivity : AppCompatActivity() {
             email = user.email.toString()
             val intent = Intent(this,DataUpdate::class.java)
             startActivity(intent)
+            finish()
         } else {
 
         }

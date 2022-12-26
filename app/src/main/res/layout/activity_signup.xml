@@ -7,10 +7,26 @@
     android:background="#ADCDFFFB"
     tools:context=".signup">
 
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:text="Use other Methods"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupbtn" />
+
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="412dp"
         android:layout_height="105dp"
+        android:scaleType="fitStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +95,7 @@
         android:id="@+id/imageView14"
         android:layout_width="184dp"
         android:layout_height="144dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

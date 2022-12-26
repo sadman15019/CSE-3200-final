@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         age=intent.getStringExtra("age").toString()
         gender=intent.getStringExtra("gender").toString()
         if (allPermissionsGranted()) {
-            startCamera()
+            startCameraatf60()
         } else {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
@@ -86,10 +86,7 @@ class MainActivity : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
 
      }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu,menu);
-        return true
-    }
+
     private fun stopVideo() {
         val curRecording = recording
         if (curRecording != null) {
@@ -103,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("gender",gender)
             intent.putExtra("age",age)
             startActivity(intent)
+            finish()
            // return
         }
         val videoCapture = this.videoCapture ?: return
@@ -216,7 +214,7 @@ class MainActivity : AppCompatActivity() {
 
                             // time count down for 30 seconds,
                             // with 1 second as countDown interval
-                            object : CountDownTimer(15000, 1000) {
+                            object : CountDownTimer(16000, 1000) {
 
                                 // Callback function, fired on regular interval
                                 override fun onTick(millisUntilFinished: Long) {

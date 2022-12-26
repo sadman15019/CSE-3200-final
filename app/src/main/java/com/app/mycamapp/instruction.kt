@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageButton
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 
 class instruction : AppCompatActivity() {
      lateinit var age:String
@@ -16,6 +18,8 @@ class instruction : AppCompatActivity() {
     lateinit var email:String
      lateinit var appcambtn:Button
     lateinit var mblcambtn:Button
+    private lateinit var user:FirebaseAuth
+
     // creating a variable for our button
     lateinit var btnShowBottomSheet: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +32,7 @@ class instruction : AppCompatActivity() {
         gender = intent.getStringExtra("gender").toString()
         appcambtn=findViewById(R.id.appcambtn)
         mblcambtn=findViewById(R.id.mblcambtn)
+        user=FirebaseAuth.getInstance()
         appcambtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
             intent.putExtra("Email",email)
@@ -36,7 +41,7 @@ class instruction : AppCompatActivity() {
             intent.putExtra("gender",gender)
             intent.putExtra("age",age)
             startActivity(intent)
-            finish()
+
         }
         mblcambtn.setOnClickListener {
             val intent = Intent(this,upload::class.java)
@@ -46,32 +51,52 @@ class instruction : AppCompatActivity() {
             intent.putExtra("gender",gender)
             intent.putExtra("age",age)
             startActivity(intent)
-            finish()
+
         }
 
         // initializing our variable for button with its id.
-        btnShowBottomSheet = findViewById(R.id.idBtnShowBottomSheet);
 
         // adding on click listener for our button.
-        btnShowBottomSheet.setOnClickListener {
 
-            // on below line we are creating a new bottom sheet dialog.
+
+
+    }
+    fun recordShow(){
+        val intent = Intent(this,record::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun fragmentShow(){
+        val dialog = BottomSheetDialog(this)
+
+        // on below line we are inflating a layout file which we have created.
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+
+        // on below line we are creating a variable for our button
+        // which we are using to dismiss our dialog.
+        val btnnext = view.findViewById<Button>(R.id.nextbtn)
+
+        // on below line we are adding on click listener
+        // for our dismissing the dialog button.
+        btnnext.setOnClickListener {
+            // on below line we are calling a dismiss
+            // method to close our dialog.
+            dialog.dismiss()
             val dialog = BottomSheetDialog(this)
 
             // on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog2, null)
 
             // on below line we are creating a variable for our button
             // which we are using to dismiss our dialog.
-            val btnnext = view.findViewById<Button>(R.id.nextbtn)
+            val btndone = view.findViewById<Button>(R.id.donebtn)
 
             // on below line we are adding on click listener
             // for our dismissing the dialog button.
-            btnnext.setOnClickListener {
+            btndone.setOnClickListener {
                 // on below line we are calling a dismiss
                 // method to close our dialog.
                 dialog.dismiss()
-                nextbottomsheet()
             }
             // below line is use to set cancelable to avoid
             // closing of dialog box when clicking on the screen.
@@ -85,39 +110,55 @@ class instruction : AppCompatActivity() {
             // a show method to display a dialog.
             dialog.show()
         }
+        // below line is use to set cancelable to avoid
+        // closing of dialog box when clicking on the screen.
+        dialog.setCancelable(false)
+
+        // on below line we are setting
+        // content view to our view.
+        dialog.setContentView(view)
+
+        // on below line we are calling
+        // a show method to display a dialog.
+        dialog.show()
     }
+    fun signOut(){
+        user= FirebaseAuth.getInstance()
+        user.signOut()
+        val intent = Intent(this,StartupActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu);
         return true
     }
-    private fun nextbottomsheet() {  // on below line we are creating a new bottom sheet dialog.
-    val dialog = BottomSheetDialog(this)
 
-    // on below line we are inflating a layout file which we have created.
-    val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog2, null)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId;
 
-    // on below line we are creating a variable for our button
-    // which we are using to dismiss our dialog.
-    val btndone = view.findViewById<Button>(R.id.donebtn)
+        if (id == R.id.logout_action){
 
-    // on below line we are adding on click listener
-    // for our dismissing the dialog button.
-    btndone.setOnClickListener {
-        // on below line we are calling a dismiss
-        // method to close our dialog.
-        dialog.dismiss()
+            signOut()
+            return true
+        }
+        if(id==R.id.settings_action){
+            // on below line we are creating a new bottom sheet dialog.
+
+
+            fragmentShow()
+            return true
+        }
+        if(id==R.id.record_action){
+
+            recordShow()
+            return true
+
+        }
+
+        return super.onOptionsItemSelected(item)
     }
-    // below line is use to set cancelable to avoid
-    // closing of dialog box when clicking on the screen.
-    dialog.setCancelable(false)
 
-    // on below line we are setting
-    // content view to our view.
-    dialog.setContentView(view)
-
-    // on below line we are calling
-    // a show method to display a dialog.
-    dialog.show()
-  }
 
 }

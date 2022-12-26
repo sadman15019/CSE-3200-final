@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.app.mycamapp.databinding.ActivityDataUpdateBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -96,9 +95,7 @@ class DataUpdate : AppCompatActivity() {
             }
 
         }
-        binding.logout.setOnClickListener {
-            user.signOut()
-        }
+
         binding.updateBtn.setOnClickListener {
             email = getemail()
             if (email == "") {
@@ -117,13 +114,10 @@ class DataUpdate : AppCompatActivity() {
                 a += b
                 height = a.toString()
 
-                if (name.trim().length <= 0) {
-                    Toast.makeText(this, "name is required ", Toast.LENGTH_SHORT).show()
-                } else if (age.trim().length <= 0) {
+                 if (age.trim().length <= 0) {
                     Toast.makeText(this, "age is required", Toast.LENGTH_SHORT).show()
-                } else if (weight.trim().length <= 0) {
-                    Toast.makeText(this, "weight is required", Toast.LENGTH_SHORT).show()
-                } else {
+                }
+                 else {
 
                     updateData(email, name, gender, age, weight)
                     val intent = Intent(this, instruction::class.java)
@@ -132,21 +126,109 @@ class DataUpdate : AppCompatActivity() {
                     intent.putExtra("gender", gender)
                     intent.putExtra("age", age)
                     startActivity(intent)
-                    finish()
+
 
                 }
             }
         }
     }
-<<<<<<< HEAD
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu);
         return true
     }
-    private fun updateData(e:String, nid: String, name: String, gender: String, age: String,weight:String) {
-=======
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId;
+        if (id == R.id.logout_action){
+
+             signOut()
+            return true
+        }
+        if(id==R.id.settings_action){
+            // on below line we are creating a new bottom sheet dialog.
+          fragmentShow()
+            return true
+        }
+        if(id==R.id.record_action){
+
+            recordShow()
+            return true
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+    fun recordShow(){
+        val intent = Intent(this,record::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun fragmentShow(){
+        val dialog = BottomSheetDialog(this)
+
+        // on below line we are inflating a layout file which we have created.
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+
+        // on below line we are creating a variable for our button
+        // which we are using to dismiss our dialog.
+        val btnnext = view.findViewById<Button>(R.id.nextbtn)
+
+        // on below line we are adding on click listener
+        // for our dismissing the dialog button.
+        btnnext.setOnClickListener {
+            // on below line we are calling a dismiss
+            // method to close our dialog.
+            dialog.dismiss()
+            val dialog = BottomSheetDialog(this)
+
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog2, null)
+
+            // on below line we are creating a variable for our button
+            // which we are using to dismiss our dialog.
+            val btndone = view.findViewById<Button>(R.id.donebtn)
+
+            // on below line we are adding on click listener
+            // for our dismissing the dialog button.
+            btndone.setOnClickListener {
+                // on below line we are calling a dismiss
+                // method to close our dialog.
+                dialog.dismiss()
+            }
+            // below line is use to set cancelable to avoid
+            // closing of dialog box when clicking on the screen.
+            dialog.setCancelable(false)
+
+            // on below line we are setting
+            // content view to our view.
+            dialog.setContentView(view)
+
+            // on below line we are calling
+            // a show method to display a dialog.
+            dialog.show()
+        }
+        // below line is use to set cancelable to avoid
+        // closing of dialog box when clicking on the screen.
+        dialog.setCancelable(false)
+
+        // on below line we are setting
+        // content view to our view.
+        dialog.setContentView(view)
+
+        // on below line we are calling
+        // a show method to display a dialog.
+        dialog.show()
+    }
+ fun signOut(){
+     user=FirebaseAuth.getInstance()
+     user.signOut()
+     val intent = Intent(this,StartupActivity::class.java)
+     startActivity(intent)
+     finish()
+ }
     private fun updateData(e:String, name: String, gender: String, age: String,weight:String) {
->>>>>>> 4e1b5c440daae7577df15c6891aca9e16c0933d3
+
         database = FirebaseDatabase.getInstance().getReference("user_info")
         ref = FirebaseDatabase.getInstance().getReference().child("user_info")
 
@@ -224,7 +306,7 @@ class DataUpdate : AppCompatActivity() {
             }
         }
     }
-    private fun getemail():String
+    fun getemail():String
     {
         val curuser = FirebaseAuth.getInstance().currentUser
         var abc:String

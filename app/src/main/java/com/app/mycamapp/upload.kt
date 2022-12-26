@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,8 @@ import com.app.mycamapp.databinding.ActivityUploadBinding
 import com.chaquo.python.PyObject
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +60,7 @@ class upload : AppCompatActivity() {
     lateinit var b: Button
     lateinit var c: Button
     lateinit var selectbtn: Button
+    private lateinit var user:FirebaseAuth
 
     lateinit var handler: Handler
     lateinit var filepath: String
@@ -70,6 +74,7 @@ class upload : AppCompatActivity() {
         email = intent.getStringExtra("Email").toString()
         age = intent.getStringExtra("age").toString()
         gender = intent.getStringExtra("gender").toString()
+        user=FirebaseAuth.getInstance()
         b = findViewById(R.id.uploadbutton)
         c = findViewById(R.id.selectbutton)
         //t = findViewById(R.id.hello)
@@ -88,6 +93,7 @@ class upload : AppCompatActivity() {
                      intent.putExtra("filedir", filedir)*/
 
                     startActivity(intent)
+
 
                     if(gender=="Male")
                     {
@@ -155,12 +161,107 @@ class upload : AppCompatActivity() {
 
         }
 
+    fun recordShow(){
+        val intent = Intent(this,record::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun fragmentShow(){
+        val dialog = BottomSheetDialog(this)
+
+        // on below line we are inflating a layout file which we have created.
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog, null)
+
+        // on below line we are creating a variable for our button
+        // which we are using to dismiss our dialog.
+        val btnnext = view.findViewById<Button>(R.id.nextbtn)
+
+        // on below line we are adding on click listener
+        // for our dismissing the dialog button.
+        btnnext.setOnClickListener {
+            // on below line we are calling a dismiss
+            // method to close our dialog.
+            dialog.dismiss()
+            val dialog = BottomSheetDialog(this)
+
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog2, null)
+
+            // on below line we are creating a variable for our button
+            // which we are using to dismiss our dialog.
+            val btndone = view.findViewById<Button>(R.id.donebtn)
+
+            // on below line we are adding on click listener
+            // for our dismissing the dialog button.
+            btndone.setOnClickListener {
+                // on below line we are calling a dismiss
+                // method to close our dialog.
+                dialog.dismiss()
+            }
+            // below line is use to set cancelable to avoid
+            // closing of dialog box when clicking on the screen.
+            dialog.setCancelable(false)
+
+            // on below line we are setting
+            // content view to our view.
+            dialog.setContentView(view)
+
+            // on below line we are calling
+            // a show method to display a dialog.
+            dialog.show()
+        }
+        // below line is use to set cancelable to avoid
+        // closing of dialog box when clicking on the screen.
+        dialog.setCancelable(false)
+
+        // on below line we are setting
+        // content view to our view.
+        dialog.setContentView(view)
+
+        // on below line we are calling
+        // a show method to display a dialog.
+        dialog.show()
+    }
+    fun signOut(){
+        user= FirebaseAuth.getInstance()
+        user.signOut()
+        val intent = Intent(this,StartupActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu);
         return true
     }
 
-        //    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId;
+
+        if (id == R.id.logout_action){
+
+            signOut()
+            return true
+        }
+        if(id==R.id.settings_action){
+            // on below line we are creating a new bottom sheet dialog.
+
+
+            fragmentShow()
+            return true
+        }
+        if(id==R.id.record_action){
+
+            recordShow()
+            return true
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    //    private fun getRealPathFromUri(cntx:Context ,uri: Uri): String? {
 //        var cursor: Cursor? = null
 //        return try {
 //            val arr = arrayOf(MediaStore.Images.Media.DATA)
