@@ -27,7 +27,7 @@ A health monitoring application that tracks glucose and hemoglobin levels by usi
 
 ## Activity Flow
 
-Here are the overall activity flow of the application:
+Here is the overall activity flow of the application:
 
 ![finalflowchart](https://github.com/sadman15019/CSE-3200-final/assets/66266178/88b1cd4b-fcf4-4dd0-86a0-150c17032727)
 
